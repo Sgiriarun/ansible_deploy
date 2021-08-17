@@ -1,0 +1,24 @@
+version: 2.1
+
+jobs: 
+  configure_infrastructure:
+    docker: 
+      - images: python:3.7-alpine3.11
+    steps: 
+      - checkout
+      - add_shh_keys:
+        - fingerprint: ["d8:42:3c:4e:d0:f4:78:1f:df:6a:04:12:31:c3:32:eb"]
+      - run:
+          name: Install dependicies
+          command: |
+            apk add --update ansible #install depencies for ansible playbook
+      - run:
+          name: configure server
+          command: |
+            ansible-playbook -i inventory.txt playbook.yml
+
+workflows:
+  my_workflow:
+    jobs: 
+      - configure_infrastructure
+
