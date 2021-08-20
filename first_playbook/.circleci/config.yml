@@ -3,15 +3,15 @@ version: 2.1
 jobs: 
   configure_infrastructure:
     docker: 
-      - images: python:3.7-alpine:latest
+      - images: python:3.7-alpine3.11
     steps: 
       - checkout
       - add_shh_keys:
-        - fingerprint: ["aa:f6:6b:a1:0a:11:58:eb:54:2f:c5:20:9b:86:34:de"]
+        - fingerprints: ["aa:f6:6b:a1:0a:11:58:eb:54:2f:c5:20:9b:86:34:de"]
       - run:
           name: Install dependicies
           command: |
-            apk add --update ansible #install depencies for ansible playbook
+            apk add --update ansible 
       - run:
           name: configure server
           command: |
